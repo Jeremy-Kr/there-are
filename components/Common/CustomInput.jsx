@@ -1,7 +1,12 @@
 import styled from '@emotion/native';
-import { CustomH4 } from './CustomText';
-const CustomInput = ({ width = '250px', height = '50px' }) => {
-  return <InputContainer width={width} height={height}></InputContainer>;
+const CustomInput = ({ width = '250px', height = '50px', placeholder }) => {
+  return (
+    <InputContainer
+      width={width}
+      height={height}
+      placeholder={placeholder}
+    ></InputContainer>
+  );
 };
 
 const InputContainer = styled.TextInput`
