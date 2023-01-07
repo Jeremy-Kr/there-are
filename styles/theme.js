@@ -1,9 +1,9 @@
 export const lightTheme = {
   color: {
     background: '#F8F9FA',
-    mono100: '#E9ECEF',
-    mono80: '#DEE2E6',
-    mono60: '#CED4DA',
+    mono100: '#343A40',
+    mono80: '#495057',
+    mono60: '#6C757D',
     white100: '#F8F9FA',
     black100: '#212529',
     brand100: '#BC2649',
@@ -20,9 +20,9 @@ export const lightTheme = {
 export const darkTheme = {
   color: {
     background: '#212529',
-    mono100: '#343A40',
-    mono80: '#495057',
-    mono60: '#6C757D',
+    mono100: '#E9ECEF',
+    mono80: '#DEE2E6',
+    mono60: '#CED4DA',
     white100: '#F8F9FA',
     black100: '#212529',
     brand100: '#BC2649',
