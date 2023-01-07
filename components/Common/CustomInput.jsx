@@ -1,11 +1,7 @@
 import styled from '@emotion/native';
 const CustomInput = ({ width = '250px', height = '50px', placeholder }) => {
   return (
-    <InputContainer
-      width={width}
-      height={height}
-      placeholder={placeholder}
-    ></InputContainer>
+    <InputContainer width={width} height={height} placeholder={placeholder} />
   );
 };
 
