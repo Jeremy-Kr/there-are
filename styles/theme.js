@@ -7,6 +7,7 @@ export const lightTheme = {
     white100: '#F8F9FA',
     black100: '#212529',
     brand100: '#BC2649',
+    reverseMono80: '#DEE2E6',
   },
   fontSize: {
     title: '30px',
@@ -26,6 +27,7 @@ export const darkTheme = {
     white100: '#F8F9FA',
     black100: '#212529',
     brand100: '#BC2649',
+    reverseMono80: '#495057',
   },
   fontSize: {
     title: '30px',

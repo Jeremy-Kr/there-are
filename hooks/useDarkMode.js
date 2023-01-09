@@ -18,6 +18,7 @@ const useDarkMode = () => {
   useFocusEffect(() => {
     setTheme(getTheme());
   });
+
   return { isDark, theme };
 };
 

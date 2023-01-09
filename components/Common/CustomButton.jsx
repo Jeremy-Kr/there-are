@@ -1,15 +1,14 @@
 import styled from '@emotion/native';
-import { CustomH3 } from './CustomText';
+import { ButtonText } from './CustomText';
 
-const CustomButton = ({ width = '100px', height = '40px' }) => {
+const CustomButton = ({ width = '100px', height = '40px', children }) => {
   return (
     <ButtonContainer width={width} height={height}>
-      <CustomH3>추가하기</CustomH3>
+      <ButtonText>{children}</ButtonText>
     </ButtonContainer>
   );
 };
 const ButtonContainer = styled.TouchableOpacity`
-  display: flex;
   justify-content: center;
   align-items: center;
   width: ${(props) => props.width};

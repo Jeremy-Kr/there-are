@@ -2,12 +2,25 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Main from '../screen/Main';
 import MyPage from '../screen/MyPage';
 import { Feather, Ionicons } from '@expo/vector-icons';
+import useDarkMode from '../hooks/useDarkMode';
 
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
+  const { theme } = useDarkMode();
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      sceneContainerStyle={{
+        backgroundColor: theme.color.background,
+      }}
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: theme.color.background,
+        },
+        tabBarLabelStyle: { color: theme.color.mono100 },
+      }}
+    >
       <Tab.Screen
         name="Main"
         component={Main}
@@ -15,9 +28,10 @@ const Tabs = () => {
           headerTitleAlign: 'left',
           tabBarLabel: '메인',
           tabBarLabelPosition: 'beside-icon',
-          tabBarLabelStyle: { color: 'black' },
           tabBarIcon: (color, size) => {
-            return <Feather name="menu" size={24} color="black" />;
+            return (
+              <Feather name="menu" size={24} color={theme.color.mono100} />
+            );
           },
         }}
       />
@@ -28,9 +42,10 @@ const Tabs = () => {
           headerTitleAlign: 'left',
           tabBarLabel: '내정보',
           tabBarLabelPosition: 'beside-icon',
-          tabBarLabelStyle: { color: 'black' },
           tabBarIcon: (color, size) => {
-            return <Ionicons name="people" size={24} color="black" />;
+            return (
+              <Ionicons name="people" size={24} color={theme.color.mono100} />
+            );
           },
         }}
       />
