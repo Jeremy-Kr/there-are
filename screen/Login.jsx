@@ -1,65 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from '@emotion/native';
 import ThereAreMainText from '../components/Common/ThereAreMainText';
 import CustomInput from '../components/Common/CustomInput';
 import { CustomH4 } from '../components/Common/CustomText';
 import CustomButton from '../components/Common/CustomButton';
 import { TouchableOpacity } from 'react-native';
-//---------------------------------------------
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { authService } from '../firebase';
 import { emailRegex, pwRegex } from '../utils/utils';
-//---------------------------------------------
 
 const Login = ({ navigation: { navigate } }) => {
+  const emailRef = useRef(null);
+  const pwRef = useRef(null);
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
 
-  //유효성 검사 함수
+  // 유효성 검사
   const validateInputs = () => {
     if (!email) {
-      console.log('이멜 입력하라능');
+      alert('email을 입력해주세요.');
+      emailRef.current.focus();
       return true;
     }
     if (!pw) {
-      console.log('패스워드 입력하라능');
+      alert('password를 입력해주세요.');
+      pwRef.current.focus();
       return true;
     }
     const matchedEmail = email.match(emailRegex);
     const matchedPw = pw.match(pwRegex);
 
     if (matchedEmail === null) {
-      console.log('이멜 형식 맞게 입력하라능');
+      alert('이메일 형식에 맞게 입력해 주세요.');
+      emailRef.current.focus();
       return true;
     }
     if (matchedPw === null) {
-      console.log('패스워드 형식 맞게 입력하라능');
+      alert('비밀번호는 8자리 이상 영문자, 숫자, 특수문자 조합이어야 합니다.');
+      pwRef.current.focus();
       return true;
     }
   };
 
-  //로그인 기능 함수
+  //로그인 함수
   const handleLogin = () => {
-    console.log('이거 왜 실행안되냐');
-    // 유효성 검사함수 실행시키기
+    // 유효성 검사 함수 실행
     if (validateInputs()) {
       return;
     }
 
-    // 로그인 요청
+    // 파이어베이스 로그인 요청
     signInWithEmailAndPassword(authService, email, pw)
       .then(() => {
         console.log('로그인성공');
         setEmail('');
         setPw('');
+        // 로그인 성공시 임시로 Detail로 가도록 로직을 걸어놓았습니다.
+        navigate('Stacks', { screen: 'Detail' });
       })
       .catch((err) => {
         console.log('err.message:', err.message);
         if (err.message.includes('user-not-found')) {
-          console.log('회원이 아닙니다 회원가입 진행해주세여');
+          alert('회원이 아닙니다. 회원가입을 먼저 진행해 주세요.');
         }
         if (err.message.includes('wrong-password')) {
-          console.log('비밀번호 틀렸슴둥');
+          alert('비밀번호가 틀렸습니다.');
         }
       });
   };
@@ -70,6 +75,7 @@ const Login = ({ navigation: { navigate } }) => {
       <InputContainer>
         <InputText>이메일</InputText>
         <CustomInput
+          ref={emailRef}
           value={email}
           onChangeText={(text) => setEmail(text)}
           textContentType="emailAddress"
@@ -77,6 +83,7 @@ const Login = ({ navigation: { navigate } }) => {
         />
         <InputText>비밀번호</InputText>
         <CustomInput
+          ref={pwRef}
           value={pw}
           onChangeText={(text) => setPw(text)}
           textContentType="password"
@@ -85,11 +92,7 @@ const Login = ({ navigation: { navigate } }) => {
           placeholder="Enter your password"
         />
         <LoginBottomContainer>
-          <LoginButton
-            onPress={() => {
-              handleLogin();
-            }}
-          >
+          <LoginButton onPress={handleLogin}>
             <CustomButton>로그인</CustomButton>
           </LoginButton>
           <TouchableOpacity
