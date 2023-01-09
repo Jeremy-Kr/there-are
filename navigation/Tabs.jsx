@@ -11,14 +11,14 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       sceneContainerStyle={{
-        backgroundColor: theme.color.background,
+        backgroundColor: theme.color?.background,
       }}
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: theme.color.background,
+          backgroundColor: theme.color?.background,
         },
-        tabBarLabelStyle: { color: theme.color.mono100 },
+        tabBarLabelStyle: { color: theme.color?.mono100 },
       }}
     >
       <Tab.Screen
@@ -30,7 +30,7 @@ const Tabs = () => {
           tabBarLabelPosition: 'beside-icon',
           tabBarIcon: (color, size) => {
             return (
-              <Feather name="menu" size={24} color={theme.color.mono100} />
+              <Feather name="menu" size={24} color={theme.color?.mono100} />
             );
           },
         }}
@@ -44,7 +44,7 @@ const Tabs = () => {
           tabBarLabelPosition: 'beside-icon',
           tabBarIcon: (color, size) => {
             return (
-              <Ionicons name="people" size={24} color={theme.color.mono100} />
+              <Ionicons name="people" size={24} color={theme.color?.mono100} />
             );
           },
         }}
