@@ -10,6 +10,7 @@ const Root = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Tabs" component={Tabs} />
       <Stack.Screen name="Splash" component={Splash} />
+
       <Stack.Screen name="Stacks" component={Stacks} />
     </Stack.Navigator>
   );

@@ -17,10 +17,15 @@ const Main = ({ navigation: { navigate } }) => {
         <Text>Detail 이동</Text>
       </TouchableOpacity>
 
+
+      <TouchableOpacity onPress={() => navigate('Stacks', { screen: 'Login' })}>
+        <Text>Login</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity
-        onPress={() => navigate('Stacks', { screen: 'Landing' })}
+        onPress={() => navigate('Stacks', { screen: 'SignUp' })}
       >
-        <Text>Landing 이동</Text>
+        <Text>SignUp</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
