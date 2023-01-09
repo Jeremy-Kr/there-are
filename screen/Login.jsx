@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from '@emotion/native';
-import ThereAreMainText from '../components/ThereAre/ThereAreMainText';
+import ThereAreMainText from '../components/Common/ThereAreMainText';
 import CustomInput from '../components/Common/CustomInput';
 import { CustomH4 } from '../components/Common/CustomText';
 import CustomButton from '../components/Common/CustomButton';
-const Login = () => {
+import { TouchableOpacity } from 'react-native';
+
+const Login = ({ navigation: { navigate } }) => {
   return (
     <LoginContainer>
       <ThereAreMainText />
@@ -17,14 +19,16 @@ const Login = () => {
           <LoginButton>
             <CustomButton>로그인</CustomButton>
           </LoginButton>
-          <InputText>회원이 아니신가요?</InputText>
+          <TouchableOpacity
+            onPress={() => navigate('Stacks', { screen: 'SignUp' })}
+          >
+            <InputText>회원이 아니신가요?</InputText>
+          </TouchableOpacity>
         </LoginBottomContainer>
       </InputContainer>
     </LoginContainer>
   );
 };
-
-export default Login;
 
 const LoginContainer = styled.SafeAreaView`
   flex: 1;
@@ -33,8 +37,7 @@ const LoginContainer = styled.SafeAreaView`
 `;
 
 const InputContainer = styled.View`
-  margin: 75px;
-  height: 300px;
+  margin: 75px 0;
 `;
 
 const InputText = styled(CustomH4)`
@@ -42,10 +45,10 @@ const InputText = styled(CustomH4)`
 `;
 
 const LoginBottomContainer = styled.View`
-  flex: 1;
-  justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 24px;
 `;
 
 const LoginButton = styled.TouchableOpacity``;
+
+export default Login;

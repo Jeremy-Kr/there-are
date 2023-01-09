@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from '@emotion/native';
-import ThereAreMainText from '../components/ThereAre/ThereAreMainText';
+import ThereAreMainText from '../components/Common/ThereAreMainText';
 import CustomInput from '../components/Common/CustomInput';
 import { CustomH4 } from '../components/Common/CustomText';
 import CustomButton from '../components/Common/CustomButton';
+import { TouchableOpacity } from 'react-native';
 
-const SignUp = () => {
+const SignUp = ({ navigation: { navigate } }) => {
   return (
     <SignUpContainer>
       <ThereAreMainText />
@@ -20,14 +21,16 @@ const SignUp = () => {
           <JoinButtonContainer>
             <CustomButton>회원가입</CustomButton>
           </JoinButtonContainer>
-          <InputText>이미 회원이신가요?</InputText>
+          <TouchableOpacity
+            onPress={() => navigate('Stacks', { screen: 'Login' })}
+          >
+            <InputText>이미 회원이신가요?</InputText>
+          </TouchableOpacity>
         </LoginBottomContainer>
       </InputContainer>
     </SignUpContainer>
   );
 };
-
-export default SignUp;
 
 const SignUpContainer = styled.SafeAreaView`
   flex: 1;
@@ -44,9 +47,10 @@ const InputText = styled(CustomH4)`
 `;
 
 const LoginBottomContainer = styled.View`
-  justify-content: center;
   align-items: center;
   margin: 30px;
 `;
 
 const JoinButtonContainer = styled.TouchableOpacity``;
+
+export default SignUp;

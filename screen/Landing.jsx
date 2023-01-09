@@ -13,17 +13,18 @@ const Landing = () => {
   );
 };
 
-export default Landing;
 const LandingContainer = styled.SafeAreaView`
   flex: 1;
   justify-content: center;
-  align-items: center;
+  margin: 0 80px;
 `;
 
 const LeftH1 = styled(CustomH1)`
-  margin-right: 120px;
+  text-align: left;
 `;
 
 const RightH1 = styled(CustomH1)`
-  margin-left: 90px;
+  text-align: right;
 `;
+
+export default Landing;

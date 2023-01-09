@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomTitle } from '../Common/CustomText';
+import { CustomTitle } from './CustomText';
 import styled from '@emotion/native';
 
 const ThereAreMainText = () => {
@@ -11,9 +11,9 @@ const ThereAreMainText = () => {
   );
 };
 
-export default ThereAreMainText;
-
 const MainTextContainer = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+export default ThereAreMainText;
