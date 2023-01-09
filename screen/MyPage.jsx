@@ -7,7 +7,6 @@ const MyPage = () => {
   return (
     <SafeAreaView>
       <MyPageKingView>
-        <Text>MyPage</Text>
         <MyPageTopView>
           <MypageTopTextView>
             <MypageTopText>함께한지 D+347</MypageTopText>
