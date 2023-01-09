@@ -1,5 +1,6 @@
 import styled from '@emotion/native';
 import { ButtonText } from './CustomText';
+import { View } from 'react-native';
 
 const CustomButton = ({ width = '100px', height = '40px', children }) => {
   return (
@@ -8,7 +9,7 @@ const CustomButton = ({ width = '100px', height = '40px', children }) => {
     </ButtonContainer>
   );
 };
-const ButtonContainer = styled.TouchableOpacity`
+const ButtonContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: ${(props) => props.width};

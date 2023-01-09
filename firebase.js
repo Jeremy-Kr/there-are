@@ -1,14 +1,14 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCkDCqGlkeukNDH14uRt5bPnC3nUxL0bZk",
-  authDomain: "there-are-323ae.firebaseapp.com",
-  projectId: "there-are-323ae",
-  storageBucket: "there-are-323ae.appspot.com",
-  messagingSenderId: "337725371789",
-  appId: "1:337725371789:web:8460c7eaa0e6b6e343f9c4",
+  apiKey: 'AIzaSyBW9zssZOBZvJlTpNmdLUjlfcjTAWIMdsM',
+  authDomain: 'rn-todo-prac-7cf77.firebaseapp.com',
+  projectId: 'rn-todo-prac-7cf77',
+  storageBucket: 'rn-todo-prac-7cf77.appspot.com',
+  messagingSenderId: '47160925799',
+  appId: '1:47160925799:web:9f4e6b25d0b57d38433ec2',
 };
 
 const app = initializeApp(firebaseConfig);

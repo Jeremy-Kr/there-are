@@ -1,21 +1,38 @@
 import styled from '@emotion/native';
-import React from 'react';
+import React, { useState } from 'react';
 import CustomButton from '../components/Common/CustomButton';
 import CustomInput from '../components/Common/CustomInput';
 import { CustomH1 } from '../components/Common/CustomText';
+import { db } from '../firebase';
+import { addDoc, collection } from 'firebase/firestore';
+import { TouchableOpacity } from 'react-native';
 
 const AddDetail = () => {
+  const [tobetitle, setTobetitle] = useState('');
+
+  const addTobelist = async () => {
+    const newTobelist = {
+      tobetitle,
+      createdAt: Date.now(),
+    };
+    await addDoc(collection(db, 'Tobelist'), newTobelist);
+    setTobetitle('');
+  };
+
   return (
     <AddDetailContainer>
       <AddDetailTitle>내가 원하는 미래</AddDetailTitle>
       <AddDetailUserName>나 이순신은</AddDetailUserName>
       <AddDetailInputContainer>
-        <CustomInput />
+        <TouchableOpacity>
+          <CustomInput onChangeText={setTobetitle} value={tobetitle} />
+        </TouchableOpacity>
         <AddDetailLast>다.</AddDetailLast>
       </AddDetailInputContainer>
-
       <AddDetailButtonContainer>
-        <CustomButton>시작하기</CustomButton>
+        <TouchableOpacity onPress={() => addTobelist()}>
+          <CustomButton>시작하기</CustomButton>
+        </TouchableOpacity>
       </AddDetailButtonContainer>
     </AddDetailContainer>
   );
