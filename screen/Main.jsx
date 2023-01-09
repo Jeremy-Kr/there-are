@@ -17,6 +17,7 @@ const Main = ({ navigation: { navigate } }) => {
         <Text>Detail 이동</Text>
       </TouchableOpacity>
 
+
       <TouchableOpacity onPress={() => navigate('Stacks', { screen: 'Login' })}>
         <Text>Login</Text>
       </TouchableOpacity>
