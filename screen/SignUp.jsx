@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import styled from '@emotion/native';
 
 const SignUp = () => {
-  return (
-    <View>
-      <Text>SignUp</Text>
-    </View>
-  );
+  return <SignUpContainer></SignUpContainer>;
 };
 
 export default SignUp;
+
+const SignUpContainer = styled.SafeAreaView`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
