@@ -6,6 +6,7 @@ const Main = ({ navigation: { navigate } }) => {
   return (
     <SafeAreaView>
       <CustomTitle>Main</CustomTitle>
+
       <TouchableOpacity
         onPress={() => navigate('Stacks', { screen: 'Detail' })}
       >
