@@ -20,6 +20,12 @@ const Main = ({ navigation: { navigate } }) => {
       <TouchableOpacity onPress={() => navigate('Stacks', { screen: 'Login' })}>
         <Text>Login</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => navigate('Stacks', { screen: 'SignUp' })}
+      >
+        <Text>SignUp</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
