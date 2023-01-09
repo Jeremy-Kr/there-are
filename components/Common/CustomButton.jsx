@@ -8,7 +8,7 @@ const CustomButton = ({ width = '100px', height = '40px', children }) => {
     </ButtonContainer>
   );
 };
-const ButtonContainer = styled.TouchableOpacity`
+const ButtonContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: ${(props) => props.width};
