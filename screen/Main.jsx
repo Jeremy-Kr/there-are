@@ -1,15 +1,17 @@
 import React from 'react';
-import { Text, SafeAreaView } from 'react-native';
-import CustomButton from '../components/Common/CustomButton';
-import CustomInput from '../components/Common/CustomInput';
+import { Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { CustomTitle } from '../components/Common/CustomText';
 
-const Main = () => {
+const Main = ({ navigation: { navigate } }) => {
   return (
     <SafeAreaView>
       <CustomTitle>Main</CustomTitle>
-      <CustomButton />
-      <CustomInput />
+
+      <TouchableOpacity
+        onPress={() => navigate('Stacks', { screen: 'Detail' })}
+      >
+        <Text>Detail 이동</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
