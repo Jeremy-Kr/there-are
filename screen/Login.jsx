@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/native';
 import ThereAreMainText from '../components/Common/ThereAreMainText';
 import CustomInput from '../components/Common/CustomInput';
