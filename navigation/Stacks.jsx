@@ -14,7 +14,7 @@ const Stacks = ({ navigation: { goBack } }) => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="Login"
-        component={Login}
+        component={AddDetail}
         options={{
           animation: 'fade',
           gestureEnabled: false,
