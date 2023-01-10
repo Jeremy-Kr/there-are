@@ -1,9 +1,14 @@
 import styled from '@emotion/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CustomSplashTitle } from '../components/Common/CustomText';
 
-const Splash = () => {
+const Splash = ({ navigation: { navigate } }) => {
   const data = '필사즉생, 필생즉사';
+  useEffect(() => {
+    setTimeout(() => {
+      navigate('Stacks', { index: 0, screen: ['Login'] });
+    }, 2000);
+  }, []);
   return (
     <SplashContainer>
       <CustomSplashTitle>{data}</CustomSplashTitle>

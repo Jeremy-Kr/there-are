@@ -18,6 +18,7 @@ const Main = ({ navigation: { navigate } }) => {
         <CustomButton>추가하기</CustomButton>
       </ButtonContainer>
     </MainContainer>
+
   );
 };
 
