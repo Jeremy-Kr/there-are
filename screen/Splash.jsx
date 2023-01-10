@@ -4,16 +4,16 @@ import { CustomSplashTitle } from '../components/Common/CustomText';
 import { useQuery } from 'react-query';
 import { getFamousSaying } from '../api';
 import { ActivityIndicator } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 
 const Splash = ({ navigation: { reset } }) => {
   const [saying, setSaying] = useState('');
 
-  useFocusEffect(() => {
-    setTimeout(() => {
-      reset({ routes: [{ name: 'Stacks', params: { screen: 'Login' } }] });
-    }, 3000);
-  });
+  setTimeout(() => {
+    //푸슝푸슝 이슈
+    reset({
+      routes: [{ name: 'Stacks', params: { screen: 'Login' } }],
+    });
+  }, 3000);
 
   // useMemo ?? 어떤 값을 가져오기 위한거(특정 데이터 저장하려고)
   // useEffect ?? 어떤 함수, 로직을 실행할때

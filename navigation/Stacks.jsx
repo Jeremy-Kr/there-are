@@ -12,14 +12,7 @@ const Stack = createNativeStackNavigator();
 const Stacks = ({ navigation: { goBack } }) => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{
-          animation: 'fade',
-          gestureEnabled: false,
-        }}
-      />
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Landing" component={Landing} />
       <Stack.Screen name="AddToBe" component={AddToBe} />

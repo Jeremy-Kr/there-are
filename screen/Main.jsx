@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import CustomButton from '../components/Common/CustomButton';
 import { CustomH1 } from '../components/Common/CustomText';
 import { getAuth } from 'firebase/auth';
@@ -13,14 +13,28 @@ const Main = ({ navigation: { navigate } }) => {
     const user = auth?.currentUser;
     setUserName(user?.displayName);
   }, []);
+
+  const handleAddPress = () => {
+    navigate('Stacks', { screen: 'AddDetail' });
+  };
+
+  const handleDetailPress = () => {
+    navigate('Stacks', {
+      screen: 'Detail',
+      params: { id: 'tVR0Gn3TaiUFkjdtba5c' },
+    });
+  };
+
+  // tVR0Gn3TaiUFkjdtba5c
+
   return (
     <MainContainer>
       <ListedContainer>
-        <ListedText>나 {userName}은 전쟁천재이다.</ListedText>
-        <ListedText>나 {userName}은 기록 장인이다.</ListedText>
-        <ListedText>나 {userName}은 애국자다.</ListedText>
+        <TouchableOpacity onPress={handleDetailPress}>
+          <ListedText>나 {userName}은 전쟁천재이다.</ListedText>
+        </TouchableOpacity>
       </ListedContainer>
-      <ButtonContainer>
+      <ButtonContainer onPress={handleAddPress}>
         <CustomButton>추가하기</CustomButton>
       </ButtonContainer>
     </MainContainer>
@@ -36,7 +50,7 @@ const ListedContainer = styled.View`
   margin-top: 250px;
 `;
 
-const ButtonContainer = styled.View`
+const ButtonContainer = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   margin-top: 150px;
