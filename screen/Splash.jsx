@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { CustomSplashTitle } from '../components/Common/CustomText';
 import { useQuery } from 'react-query';
 import { getFamousSaying } from '../api';
@@ -9,13 +9,15 @@ import { useFocusEffect } from '@react-navigation/native';
 const Splash = ({ navigation: { reset } }) => {
   const [saying, setSaying] = useState('');
 
-  useFocusEffect(
-    useCallback(() => {
-      const unsubscribe = setTimeout(() => {
-        reset({ routes: [{ name: 'Stacks', params: { screen: 'Login' } }] });
-      }, 3000);
-    }, [])
-  );
+  useFocusEffect(() => {
+    setTimeout(() => {
+      reset({ routes: [{ name: 'Stacks', params: { screen: 'Login' } }] });
+    }, 3000);
+  });
+
+  // useMemo ?? 어떤 값을 가져오기 위한거(특정 데이터 저장하려고)
+  // useEffect ?? 어떤 함수, 로직을 실행할때
+  // useCallback ?? 함수 내부에서 리턴하는 값을 저장하려고
 
   const { data, isLoading } = useQuery(['getFamousSaying'], getFamousSaying, {
     onSuccess: (data) => {
