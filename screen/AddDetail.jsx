@@ -1,19 +1,29 @@
 import styled from '@emotion/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomButton from '../components/Common/CustomButton';
 import CustomInput from '../components/Common/CustomInput';
 import { CustomH1 } from '../components/Common/CustomText';
 import { db } from '../firebase';
 import { addDoc, collection } from 'firebase/firestore';
 import { TouchableOpacity } from 'react-native';
+import { getAuth } from 'firebase/auth';
 
 const AddDetail = () => {
   const [tobetitle, setTobetitle] = useState('');
+  const [userId, setUserId] = useState('');
+
+  const auth = getAuth();
+
+  useEffect(() => {
+    const user = auth?.currentUser;
+    setUserId(user?.email);
+  }, []);
 
   const addTobelist = async () => {
     const newTobelist = {
       tobetitle,
       createdAt: Date.now(),
+      userId,
     };
     await addDoc(collection(db, 'Tobelist'), newTobelist);
     setTobetitle('');
