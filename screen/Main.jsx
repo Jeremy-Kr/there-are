@@ -1,24 +1,29 @@
 import styled from '@emotion/native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native';
-
 import CustomButton from '../components/Common/CustomButton';
-
 import { CustomH1 } from '../components/Common/CustomText';
+import { getAuth } from 'firebase/auth';
 
 const Main = ({ navigation: { navigate } }) => {
+  const auth = getAuth();
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const user = auth?.currentUser;
+    setUserName(user?.displayName);
+  }, []);
   return (
     <MainContainer>
       <ListedContainer>
-        <ListedText>나 이순신은 전쟁천재이다.</ListedText>
-        <ListedText>나 이순신은 기록 장인이다.</ListedText>
-        <ListedText>나 이순신은 애국자다.</ListedText>
+        <ListedText>나 {userName}은 전쟁천재이다.</ListedText>
+        <ListedText>나 {userName}은 기록 장인이다.</ListedText>
+        <ListedText>나 {userName}은 애국자다.</ListedText>
       </ListedContainer>
       <ButtonContainer>
         <CustomButton>추가하기</CustomButton>
       </ButtonContainer>
     </MainContainer>
-
   );
 };
 
