@@ -1,16 +1,18 @@
 import styled from '@emotion/native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native';
-
 import CustomButton from '../components/Common/CustomButton';
-
 import { CustomH1 } from '../components/Common/CustomText';
 import { getAuth } from 'firebase/auth';
 
-const auth = getAuth();
-const user = auth.currentUser;
-const userName = user.displayName;
 const Main = ({ navigation: { navigate } }) => {
+  const auth = getAuth();
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const user = auth?.currentUser;
+    setUserName(user?.displayName);
+  }, []);
   return (
     <MainContainer>
       <ListedContainer>

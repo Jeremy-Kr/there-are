@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CustomH1 } from '../components/Common/CustomText';
 import { getAuth } from 'firebase/auth';
 import styled from '@emotion/native';
 
-const auth = getAuth();
-const user = auth.currentUser;
-const userName = user.displayName;
-
 const Landing = () => {
+  const [userName, setUserName] = useState('');
+
+  const auth = getAuth();
+
+  useEffect(() => {
+    const user = auth?.currentUser;
+    setUserName(user?.displayName);
+  }, []);
+
   return (
     <LandingContainer>
       <LeftH1>{userName} 님</LeftH1>
