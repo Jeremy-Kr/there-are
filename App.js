@@ -6,20 +6,25 @@ import Root from './navigation/Root';
 
 import { darkTheme, lightTheme } from './styles/theme';
 import useSplashScreen from './hooks/useSplashScreen';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const App = () => {
   const isDark = useColorScheme() === 'dark';
   const { appIsReady } = useSplashScreen();
+  const queryClient = new QueryClient();
+
   if (!appIsReady) {
     return null;
   }
 
   return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <NavigationContainer>
-        <Root />
-      </NavigationContainer>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <NavigationContainer>
+          <Root />
+        </NavigationContainer>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 
