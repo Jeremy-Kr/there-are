@@ -4,28 +4,39 @@ import { TouchableOpacity } from 'react-native';
 import CustomButton from '../components/Common/CustomButton';
 import { CustomH1 } from '../components/Common/CustomText';
 import { getAuth } from 'firebase/auth';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 
 const Main = ({ navigation: { navigate } }) => {
   const auth = getAuth();
   const [userName, setUserName] = useState('');
+  const [tobelist, setTobelist] = useState([]);
 
   useEffect(() => {
     const user = auth?.currentUser;
     setUserName(user?.displayName);
   }, []);
 
-  const handleAddPress = () => {
-    navigate('Stacks', { screen: 'AddDetail' });
-  };
-
-  const handleDetailPress = () => {
-    navigate('Stacks', {
-      screen: 'Detail',
-      params: { id: 'tVR0Gn3TaiUFkjdtba5c' },
+  const getlist = async () => {
+    const q = query(
+      collection(db, 'Tobelist'),
+      where('userId', '==', auth?.currentUser.email)
+    );
+    const querySnapshot = await getDocs(q);
+    const newTobelist = [];
+    querySnapshot.forEach((doc) => {
+      const newItem = {
+        id: doc.id,
+        ...doc.data(),
+      };
+      newTobelist.push(newItem);
     });
+    setTobelist(newTobelist);
   };
 
-  // tVR0Gn3TaiUFkjdtba5c
+  useEffect(() => {
+    getlist();
+  }, []);
 
   return (
     <MainContainer>
