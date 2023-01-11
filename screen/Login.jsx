@@ -56,7 +56,7 @@ const Login = ({ navigation: { navigate } }) => {
         setEmail('');
         setPw('');
         // 로그인 성공시 임시로 Detail로 가도록 로직을 걸어놓았습니다.
-        navigate('Stacks', { screen: 'AddDetail' });
+        navigate('Tabs', { screen: 'Main' });
       })
       .catch((err) => {
         console.log('err.message:', err.message);
