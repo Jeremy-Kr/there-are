@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native';
 import { CustomH1, CustomH3 } from '../components/Common/CustomText';
 import styled from '@emotion/native';
@@ -7,10 +7,13 @@ import useGetToBeList from '../hooks/useGetToBeList';
 import { useFocusEffect } from '@react-navigation/native';
 import { authService } from '../firebase';
 
-const MyPage = ({ navigation: { navigate, reset } }) => {
+const MyPage = ({ navigation: { navigate, reset, isFocused } }) => {
+  const isFocus = isFocused();
   const auth = getAuth();
+
   const { toBeLength } = useGetToBeList();
   const [user, setUser] = useState({});
+  const [userDisplayName, setUserDisplayName] = useState('');
   const [userCreatedDay, setUserCreatedDay] = useState();
 
   const getUserCreatedDay = async () => {
@@ -24,9 +27,17 @@ const MyPage = ({ navigation: { navigate, reset } }) => {
   useFocusEffect(() => {
     if (auth.currentUser) {
       setUser(auth.currentUser);
+      setUserDisplayName(auth.currentUser.displayName);
+
       getUserCreatedDay();
     }
   });
+
+  useEffect(() => {
+    setTimeout(() => {
+      setUserDisplayName(authService.currentUser.displayName);
+    }, 500);
+  }, [isFocus]);
 
   const handleLogOutPress = () => {
     // 컨펌 !!!!
@@ -65,6 +76,7 @@ const MyPage = ({ navigation: { navigate, reset } }) => {
   return (
     <SafeAreaView>
       <MyPageTextContainer>
+        <MyPageTopText>{userDisplayName}</MyPageTopText>
         <MyPageTopText>함께한지 D+{userCreatedDay}</MyPageTopText>
         <MyPageTopText>내가 바꿀 미래 {toBeLength}</MyPageTopText>
       </MyPageTextContainer>

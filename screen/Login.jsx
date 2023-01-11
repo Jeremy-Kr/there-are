@@ -17,7 +17,7 @@ const Login = ({ navigation: { navigate } }) => {
 
   const checkUser = setTimeout(() => {
     authService.currentUser && navigate('Stacks', { screen: 'Landing' });
-  }, 1000);
+  }, 500);
 
   useEffect(() => {
     checkUser;
