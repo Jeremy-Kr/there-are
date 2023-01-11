@@ -1,32 +1,17 @@
 import styled from '@emotion/native';
-import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { CustomSplashTitle } from '../components/Common/CustomText';
-import { useQuery } from 'react-query';
-import { getFamousSaying } from '../api';
 import { ActivityIndicator } from 'react-native';
+import useResetNavigate from '../hooks/useResetNavigate';
+import useSayingQuery from '../hooks/useSayingQuery';
 
-const Splash = ({ navigation: { reset } }) => {
-  const [saying, setSaying] = useState('');
+const Splash = () => {
+  const { saying, sayingSpeaker, isLoading } = useSayingQuery();
+  const { resetNavigate } = useResetNavigate('login');
 
-  setTimeout(() => {
-    //푸슝푸슝 이슈
-    reset({
-      routes: [{ name: 'Stacks', params: { screen: 'Login' } }],
-    });
-  }, 3000);
-
-  // useMemo ?? 어떤 값을 가져오기 위한거(특정 데이터 저장하려고)
-  // useEffect ?? 어떤 함수, 로직을 실행할때
-  // useCallback ?? 함수 내부에서 리턴하는 값을 저장하려고
-
-  const { data, isLoading } = useQuery(['getFamousSaying'], getFamousSaying, {
-    onSuccess: (data) => {
-      setSaying(data[1]?.['respond']);
-    },
-    onError: (e) => {
-      console.log(e.message);
-    },
-  });
+  useEffect(() => {
+    resetNavigate;
+  }, [saying]);
 
   if (isLoading) {
     return (
@@ -38,7 +23,8 @@ const Splash = ({ navigation: { reset } }) => {
 
   return (
     <SplashContainer>
-      <CustomSplashTitle>{saying}</CustomSplashTitle>
+      <SplashTitle>{saying}</SplashTitle>
+      <SplashTitle>-{sayingSpeaker}-</SplashTitle>
     </SplashContainer>
   );
 };
@@ -54,6 +40,10 @@ const Loader = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+`;
+
+const SplashTitle = styled(CustomSplashTitle)`
+  margin: 0 20px 20px 20px;
 `;
 
 export default Splash;
