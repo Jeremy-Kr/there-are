@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import { updateProfile } from 'firebase/auth';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import CustomButton from '../components/Common/CustomButton';
 import CustomInput from '../components/Common/CustomInput';
@@ -9,7 +9,14 @@ import { authService } from '../firebase';
 
 const EditNickName = ({ navigation: { goBack, reset } }) => {
   const [userNickName, setUserNickName] = useState();
+  const changeNickNameRef = useRef(null);
   const handleChangePress = () => {
+    if (userNickName.length > 5) {
+      alert('닉네임은 5글자 미만입니다!');
+      changeNickNameRef.current.focus();
+      setUserNickName('');
+      return true;
+    }
     updateProfile(authService.currentUser, { displayName: userNickName });
     reset({
       index: 0,
@@ -33,6 +40,7 @@ const EditNickName = ({ navigation: { goBack, reset } }) => {
 
       <NickNameInputContainer>
         <CustomInput
+          ref={changeNickNameRef}
           onChangeText={setUserNickName}
           value={userNickName}
           width={320}

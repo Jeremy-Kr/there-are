@@ -12,6 +12,7 @@ import { emailRegex, pwRegex } from '../utils/utils';
 const SignUp = ({ navigation: { navigate } }) => {
   const emailRef = useRef(null);
   const pwRef = useRef(null);
+  const nickNameRef = useRef(null);
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
   const [userNickName, setUserNickName] = useState('');
@@ -29,6 +30,12 @@ const SignUp = ({ navigation: { navigate } }) => {
     if (!pw) {
       alert('password를 입력해주세요.');
       pwRef.current.focus();
+      return true;
+    }
+    // 테스트(1)
+    if (nickNameRef.value === 5) {
+      alert('이름은 다섯글자 미만으로 작성해주세요!');
+      nickNameRef.current.focus();
       return true;
     }
     const matchedEmail = email.match(emailRegex);
@@ -98,6 +105,7 @@ const SignUp = ({ navigation: { navigate } }) => {
         />
         <InputText>이름</InputText>
         <CustomInput
+          ref={nickNameRef}
           onChangeText={setUserNickName}
           value={userNickName}
           placeholder="이름을 입력해주세요."
