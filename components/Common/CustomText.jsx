@@ -44,4 +44,5 @@ export const CustomH4 = styled.Text`
 
 export const ButtonText = styled(CustomH3)`
   color: ${(props) => props.theme.color.white100};
+  font-size: ${(props) => props.fontSize};
 `;

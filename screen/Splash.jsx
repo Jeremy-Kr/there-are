@@ -1,5 +1,4 @@
 import styled from '@emotion/native';
-import { useEffect } from 'react';
 import { CustomSplashTitle } from '../components/Common/CustomText';
 import { ActivityIndicator } from 'react-native';
 import useResetNavigate from '../hooks/useResetNavigate';
@@ -7,11 +6,7 @@ import useSayingQuery from '../hooks/useSayingQuery';
 
 const Splash = () => {
   const { saying, sayingSpeaker, isLoading } = useSayingQuery();
-  const { resetNavigate } = useResetNavigate('login');
-
-  useEffect(() => {
-    resetNavigate;
-  }, [saying]);
+  useResetNavigate('Stacks', 'login');
 
   if (isLoading) {
     return (
@@ -24,7 +19,7 @@ const Splash = () => {
   return (
     <SplashContainer>
       <SplashTitle>{saying}</SplashTitle>
-      <SplashTitle>-{sayingSpeaker}-</SplashTitle>
+      <SplashTitle>- {sayingSpeaker} -</SplashTitle>
     </SplashContainer>
   );
 };

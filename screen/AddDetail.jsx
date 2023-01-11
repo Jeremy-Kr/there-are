@@ -1,46 +1,39 @@
 import styled from '@emotion/native';
-import React, { useEffect, useState } from 'react';
 import CustomButton from '../components/Common/CustomButton';
 import CustomInput from '../components/Common/CustomInput';
 import { CustomH1 } from '../components/Common/CustomText';
-import { db } from '../firebase';
-import { addDoc, collection } from 'firebase/firestore';
 import { TouchableOpacity } from 'react-native';
-import { getAuth } from 'firebase/auth';
+import useAddDetail from '../hooks/useAddDetail';
+import { authService } from '../firebase';
 
-const AddDetail = () => {
-  const [tobetitle, setTobetitle] = useState('');
-  const [userId, setUserId] = useState('');
-
-  const auth = getAuth();
-
-  useEffect(() => {
-    const user = auth?.currentUser;
-    setUserId(user?.email);
-  }, []);
-
-  const addTobelist = async () => {
-    const newTobelist = {
-      tobetitle,
-      createdAt: Date.now(),
-      userId,
-    };
-    await addDoc(collection(db, 'Tobelist'), newTobelist);
-    setTobetitle('');
-  };
+const AddDetail = ({
+  navigation: { goBack },
+  route: {
+    params: { userUid },
+  },
+}) => {
+  const { handleAddClick, toBeTitle, setToBeTitle } = useAddDetail(userUid);
 
   return (
     <AddDetailContainer>
+      <BackButtonContainer onPress={goBack}>
+        <CustomButton fontSize="14px" width="80px" height="34px">
+          뒤로가기
+        </CustomButton>
+      </BackButtonContainer>
       <AddDetailTitle>내가 원하는 미래</AddDetailTitle>
-      <AddDetailUserName>나 이순신은</AddDetailUserName>
+      <AddDetailUserName>나는</AddDetailUserName>
       <AddDetailInputContainer>
-        <TouchableOpacity>
-          <CustomInput onChangeText={setTobetitle} value={tobetitle} />
-        </TouchableOpacity>
+        <CustomInput
+          maxLength={5}
+          onChangeText={setToBeTitle}
+          value={toBeTitle}
+          placeholder="최대 5글자"
+        />
         <AddDetailLast>다.</AddDetailLast>
       </AddDetailInputContainer>
       <AddDetailButtonContainer>
-        <TouchableOpacity onPress={() => addTobelist()}>
+        <TouchableOpacity onPress={() => handleAddClick()}>
           <CustomButton>시작하기</CustomButton>
         </TouchableOpacity>
       </AddDetailButtonContainer>
@@ -48,7 +41,13 @@ const AddDetail = () => {
   );
 };
 
-const AddDetailContainer = styled.SafeAreaView`
+const BackButtonContainer = styled.TouchableOpacity`
+  position: absolute;
+  top: 80px;
+  left: 20px;
+`;
+
+const AddDetailContainer = styled.View`
   flex: 1;
   justify-content: center;
 `;

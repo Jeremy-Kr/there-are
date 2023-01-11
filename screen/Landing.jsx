@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { CustomH1 } from '../components/Common/CustomText';
 import { getAuth } from 'firebase/auth';
 import styled from '@emotion/native';
+import useResetNavigate from '../hooks/useResetNavigate';
 
-const Landing = ({ navigation: { reset } }) => {
+const Landing = ({ navigation: { navigate } }) => {
   const [userName, setUserName] = useState('');
 
   const auth = getAuth();
@@ -13,14 +14,7 @@ const Landing = ({ navigation: { reset } }) => {
     setUserName(user?.displayName);
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      //푸슝푸슝 이슈
-      reset({
-        routes: [{ name: 'Tabs', params: { screen: 'Main' } }],
-      });
-    }, 2000);
-  }, [userName]);
+  useResetNavigate('Tabs', 'Main');
 
   return (
     <LandingContainer>
