@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/native';
 import ThereAreMainText from '../components/Common/ThereAreMainText';
 import CustomInput from '../components/Common/CustomInput';
@@ -15,6 +15,9 @@ const SignUp = ({ navigation: { navigate } }) => {
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
   const [userNickName, setUserNickName] = useState('');
+  useEffect(() => {
+    authService.currentUser ? navigate('Stacks', { screen: 'Landing' }) : null;
+  }, []);
 
   //유효성 검사
   const validateInputs = () => {

@@ -1,12 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Progress from 'react-native-progress';
 import styled from '@emotion/native';
 import { CustomH2, CustomH3 } from '../components/Common/CustomText';
 import * as Animatable from 'react-native-animatable';
+import CustomButton from '../components/Common/CustomButton';
+import { TouchableOpacity } from 'react-native';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
-const Detail = () => {
+const Detail = ({
+  navigation: { navigate },
+  route: {
+    params: { id },
+  },
+}) => {
   // completed는 나중에 확언 리스트의 개수만큼 카운트수가 저장되도록 세팅
   const completed = 18;
+  const [toBeDetail, setToBeDetail] = useState({});
+
+  const getDetail = async () => {
+    const docRef = doc(db, 'Tobelist', id);
+    const docSnap = await getDoc(docRef);
+    console.log('docSnap:', docSnap);
+    setToBeDetail({
+      id: docSnap.id,
+      ...docSnap.data(),
+    });
+  };
+
+  useEffect(() => {
+    getDetail();
+    console.log('toBeDetail:', toBeDetail);
+  }, []);
+
+  const handleAddClick = () => {
+    navigate('Stacks', {
+      screen: 'AddToBe',
+      params: { toBeDetail },
+    });
+  };
+
   return (
     <DetailContainer>
       <TopStatusView>
@@ -68,7 +101,9 @@ const Detail = () => {
         </DetailListText>
       </DetailListScroll>
 
-      {/* 이 부분에 버튼 들어올거에유 */}
+      <TouchableOpacity onPress={handleAddClick}>
+        <CustomButton>추가하기</CustomButton>
+      </TouchableOpacity>
     </DetailContainer>
   );
 };

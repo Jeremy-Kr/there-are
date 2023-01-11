@@ -3,12 +3,12 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBW9zssZOBZvJlTpNmdLUjlfcjTAWIMdsM',
-  authDomain: 'rn-todo-prac-7cf77.firebaseapp.com',
-  projectId: 'rn-todo-prac-7cf77',
-  storageBucket: 'rn-todo-prac-7cf77.appspot.com',
-  messagingSenderId: '47160925799',
-  appId: '1:47160925799:web:9f4e6b25d0b57d38433ec2',
+  apiKey: 'AIzaSyA97LT3VhVzUiomQe6-7kmVB-JxyRgX8Lc',
+  authDomain: 'react-native-produc.firebaseapp.com',
+  projectId: 'react-native-produc',
+  storageBucket: 'react-native-produc.appspot.com',
+  messagingSenderId: '944667587943',
+  appId: '1:944667587943:web:5de12d1cd420b7e14aebc2',
 };
 
 const app = initializeApp(firebaseConfig);

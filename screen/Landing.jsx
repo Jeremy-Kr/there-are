@@ -3,7 +3,7 @@ import { CustomH1 } from '../components/Common/CustomText';
 import { getAuth } from 'firebase/auth';
 import styled from '@emotion/native';
 
-const Landing = () => {
+const Landing = ({ navigation: { reset } }) => {
   const [userName, setUserName] = useState('');
 
   const auth = getAuth();
@@ -12,6 +12,15 @@ const Landing = () => {
     const user = auth?.currentUser;
     setUserName(user?.displayName);
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      //푸슝푸슝 이슈
+      reset({
+        routes: [{ name: 'Tabs', params: { screen: 'Main' } }],
+      });
+    }, 2000);
+  }, [userName]);
 
   return (
     <LandingContainer>

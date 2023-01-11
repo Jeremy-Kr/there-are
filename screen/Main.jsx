@@ -1,5 +1,6 @@
 import styled from '@emotion/native';
 import React, { useEffect, useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 import CustomButton from '../components/Common/CustomButton';
 import { CustomH1 } from '../components/Common/CustomText';
 import { getAuth } from 'firebase/auth';
@@ -40,13 +41,11 @@ const Main = ({ navigation: { navigate } }) => {
   return (
     <MainContainer>
       <ListedContainer>
-        <ListedText>
-          {tobelist.map((tobe) => {
-            return tobe.tobetitle;
-          })}
-        </ListedText>
+        <TouchableOpacity onPress={handleDetailPress}>
+          <ListedText>나 {userName}은 전쟁천재이다.</ListedText>
+        </TouchableOpacity>
       </ListedContainer>
-      <ButtonContainer>
+      <ButtonContainer onPress={handleAddPress}>
         <CustomButton>추가하기</CustomButton>
       </ButtonContainer>
     </MainContainer>
@@ -62,7 +61,7 @@ const ListedContainer = styled.View`
   margin-top: 250px;
 `;
 
-const ButtonContainer = styled.View`
+const ButtonContainer = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   margin-top: 150px;

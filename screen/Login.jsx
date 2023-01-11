@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/native';
 import ThereAreMainText from '../components/Common/ThereAreMainText';
 import CustomInput from '../components/Common/CustomInput';
@@ -14,6 +14,10 @@ const Login = ({ navigation: { navigate } }) => {
   const pwRef = useRef(null);
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
+
+  useEffect(() => {
+    authService.currentUser ? navigate('Stacks', { screen: 'Landing' }) : null;
+  }, []);
 
   // 유효성 검사
   const validateInputs = () => {
@@ -56,7 +60,7 @@ const Login = ({ navigation: { navigate } }) => {
         setEmail('');
         setPw('');
         // 로그인 성공시 임시로 Detail로 가도록 로직을 걸어놓았습니다.
-        navigate('Tabs', { screen: 'Main' });
+        navigate('Stacks', { screen: 'Landing' });
       })
       .catch((err) => {
         console.log('err.message:', err.message);
