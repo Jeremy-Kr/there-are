@@ -98,7 +98,7 @@ const Detail = ({
             .slice(2)
             .replace(/ /g, '');
           return (
-            <DetailListText>
+            <DetailListText key={item.id}>
               {newToBeDate} 나는 {toBeDetail.toBeTitle}다.
             </DetailListText>
           );

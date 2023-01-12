@@ -7,7 +7,11 @@ const Stack = createNativeStackNavigator();
 
 const Root = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Stack.Screen
         name="Splash"
         component={Splash}

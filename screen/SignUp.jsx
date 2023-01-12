@@ -109,6 +109,7 @@ const SignUp = ({ navigation: { navigate } }) => {
           onChangeText={setUserNickName}
           value={userNickName}
           placeholder="이름을 입력해주세요."
+          maxLength={5}
         />
         <LoginBottomContainer>
           <JoinButtonContainer onPress={handleRegister}>

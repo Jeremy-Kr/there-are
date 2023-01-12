@@ -7,6 +7,14 @@ import { deleteUser, signOut } from 'firebase/auth';
 import { authService } from '../firebase';
 import useCountDDay from '../hooks/useCountDDay';
 import { useIsFocused } from '@react-navigation/native';
+import {
+  deleteDoc,
+  getDocs,
+  query,
+  collection,
+  where,
+} from 'firebase/firestore';
+import { db } from '../firebase';
 
 const MyPage = ({ navigation: { navigate, reset } }) => {
   const { toBeLength, userCreatedDay } = useCountDDay();

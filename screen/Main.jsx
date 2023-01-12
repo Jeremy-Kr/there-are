@@ -13,6 +13,7 @@ const Main = ({ navigation: { navigate } }) => {
       <ListedContainer>
         {toBeList?.map((item) => (
           <TouchableOpacity
+            key={item.id}
             onPress={() => {
               navigate('Stacks', {
                 screen: 'Detail',
