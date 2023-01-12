@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ThemeProvider } from '@emotion/react';
+import { NavigationContainer } from '@react-navigation/native';
+import { useColorScheme } from 'react-native';
 
-export default function App() {
+import Root from './navigation/Root';
+
+import { darkTheme, lightTheme } from './styles/theme';
+import useSplashScreen from './hooks/useSplashScreen';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const App = () => {
+  const isDark = useColorScheme() === 'dark';
+  const { appIsReady } = useSplashScreen();
+  const queryClient = new QueryClient();
+
+  if (!appIsReady) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <NavigationContainer>
+          <Root />
+        </NavigationContainer>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
