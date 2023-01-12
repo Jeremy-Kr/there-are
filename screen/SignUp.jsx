@@ -16,7 +16,7 @@ const SignUp = ({ navigation: { navigate } }) => {
   const [pw, setPw] = useState('');
   const [userNickName, setUserNickName] = useState('');
   useEffect(() => {
-    authService.currentUser ? navigate('Stacks', { screen: 'Landing' }) : null;
+    authService.currentUser && navigate('Stacks', { screen: 'Landing' });
   }, []);
 
   //유효성 검사
@@ -60,9 +60,11 @@ const SignUp = ({ navigation: { navigate } }) => {
         updateProfile(authService.currentUser, { displayName: userNickName });
         setEmail('');
         setPw('');
-        // authService.currentUser가 존재하면 Detail페이지로 이동하도록 임시 로직을 걸어놓았습니다.
         if (authService.currentUser) {
-          navigate('Stacks', { screen: 'Detail' });
+          navigate('Stacks', {
+            screen: 'AddDetail',
+            params: { userUid: authService.currentUser.uid },
+          });
         }
       })
       .catch((err) => {
@@ -82,7 +84,7 @@ const SignUp = ({ navigation: { navigate } }) => {
           value={email}
           onChangeText={(text) => setEmail(text)}
           textContentType="emailAddress"
-          placeholder="Enter your email id"
+          placeholder="이메일을 입력해주세요."
         />
         <InputText>비밀번호</InputText>
         <CustomInput
@@ -92,10 +94,14 @@ const SignUp = ({ navigation: { navigate } }) => {
           textContentType="password"
           returnKeyType="send"
           secureTextEntry={true}
-          placeholder="Enter your password"
+          placeholder="비밀번호를 입력해주세요."
         />
         <InputText>이름</InputText>
-        <CustomInput onChangeText={setUserNickName} value={userNickName} />
+        <CustomInput
+          onChangeText={setUserNickName}
+          value={userNickName}
+          placeholder="이름을 입력해주세요."
+        />
         <LoginBottomContainer>
           <JoinButtonContainer onPress={handleRegister}>
             <CustomButton>회원가입</CustomButton>

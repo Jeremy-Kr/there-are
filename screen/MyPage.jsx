@@ -1,24 +1,107 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native';
 import { CustomH1, CustomH3 } from '../components/Common/CustomText';
 import styled from '@emotion/native';
+import { deleteUser, getAuth, signOut } from 'firebase/auth';
+import useGetToBeList from '../hooks/useGetToBeList';
+import { useFocusEffect } from '@react-navigation/native';
+import { authService } from '../firebase';
 
-const MyPage = () => {
+const MyPage = ({ navigation: { navigate, reset, isFocused } }) => {
+  const isFocus = isFocused();
+  const auth = getAuth();
+
+  const { toBeLength } = useGetToBeList();
+  const [user, setUser] = useState({});
+  const [userDisplayName, setUserDisplayName] = useState('');
+  const [userCreatedDay, setUserCreatedDay] = useState();
+
+  const getUserCreatedDay = async () => {
+    const userCreatedAt = await JSON.parse(JSON.stringify(user)).createdAt;
+    const newUserCreatedAt = new Date(+userCreatedAt);
+    const nowDate = new Date();
+    const distance = +nowDate.getTime() - newUserCreatedAt.getTime();
+    const day = Math.floor(distance / (1000 * 60 * 60 * 24));
+    setUserCreatedDay(+day + 1);
+  };
+  useFocusEffect(() => {
+    if (auth.currentUser) {
+      setUser(auth.currentUser);
+      setUserDisplayName(auth.currentUser.displayName);
+
+      getUserCreatedDay();
+    }
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      setUserDisplayName(authService.currentUser.displayName);
+    }, 500);
+  }, [isFocus]);
+
+  const handleLogOutPress = () => {
+    // 컨펌 !!!!
+    signOut(authService)
+      .then(alert('로그아웃 하셨습니다.'))
+      .then(
+        reset({
+          routes: [
+            {
+              name: 'Stacks',
+              params: { screen: 'Login' },
+            },
+          ],
+        })
+      )
+      .catch((e) => console.log(e));
+  };
+
+  const handleDeleteUser = () => {
+    // 컨펌 !!!!
+    deleteUser(authService.currentUser)
+      .then(alert('회원탈퇴가 완료되었습니다.'))
+      .then(
+        reset({
+          routes: [
+            {
+              name: 'Stacks',
+              params: { screen: 'Login' },
+            },
+          ],
+        })
+      )
+      .catch((e) => console.log(e));
+  };
+
   return (
     <SafeAreaView>
       <MyPageTextContainer>
-        <MyPageTopText>함께한지 D+347</MyPageTopText>
-        <MyPageTopText>다짐한 횟수 347</MyPageTopText>
-        <MyPageTopText>내가 그리는 미래 1</MyPageTopText>
+        <MyPageTopText>{userDisplayName}</MyPageTopText>
+        <MyPageTopText>함께한지 D+{userCreatedDay}</MyPageTopText>
+        <MyPageTopText>내가 바꿀 미래 {toBeLength}</MyPageTopText>
       </MyPageTextContainer>
       <MyPageButtonContainer>
-        <TouchableButton>
+        <TouchableButton
+          onPress={() => {
+            navigate('Stacks', {
+              screen: 'EditNickName',
+            });
+          }}
+        >
           <MyPageButtonText>닉네임 변경하기</MyPageButtonText>
         </TouchableButton>
-        <TouchableButton>
+        <TouchableButton
+          onPress={() => {
+            handleLogOutPress();
+          }}
+        >
           <MyPageButtonText>로그아웃</MyPageButtonText>
         </TouchableButton>
-        <TouchableButton>
+        <TouchableButton
+          onPress={() => {
+            handleDeleteUser();
+          }}
+        >
           <MyPageButtonText>회원탈퇴하기</MyPageButtonText>
         </TouchableButton>
       </MyPageButtonContainer>
