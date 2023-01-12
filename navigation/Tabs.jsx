@@ -19,6 +19,7 @@ const Tabs = () => {
           backgroundColor: theme.color?.background,
         },
         tabBarLabelStyle: { color: theme.color?.mono100 },
+        unmountOnBlur: true,
       }}
     >
       <Tab.Screen

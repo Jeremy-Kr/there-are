@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alert, SafeAreaView } from 'react-native';
+
 import { CustomH1, CustomH3 } from '../components/Common/CustomText';
 import styled from '@emotion/native';
 import { deleteUser, signOut } from 'firebase/auth';
@@ -8,6 +9,13 @@ import useCountDDay from '../hooks/useCountDDay';
 
 const MyPage = ({ navigation: { navigate, reset } }) => {
   const { toBeLength, userCreatedDay } = useCountDDay();
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      setUserDisplayName(authService.currentUser.displayName);
+    }, 500);
+  }, [isFocus]);
 
   const handleLogOutPress = () => {
     Alert.alert(
@@ -78,6 +86,7 @@ const MyPage = ({ navigation: { navigate, reset } }) => {
   return (
     <SafeAreaView>
       <MyPageTextContainer>
+        <MyPageTopText>{userDisplayName}</MyPageTopText>
         <MyPageTopText>함께한지 D+{userCreatedDay}</MyPageTopText>
         <MyPageTopText>내가 바꿀 미래 {toBeLength}</MyPageTopText>
       </MyPageTextContainer>
