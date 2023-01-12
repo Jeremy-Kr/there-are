@@ -70,7 +70,7 @@ const SignUp = ({ navigation: { navigate } }) => {
         if (authService.currentUser) {
           navigate('Stacks', {
             screen: 'AddDetail',
-            params: { userUid: authService.currentUser.uid },
+            params: { userUid: authService.currentUser.uid, isSignUp: true },
           });
         }
       })

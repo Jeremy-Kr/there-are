@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, SafeAreaView } from 'react-native';
 
 import { CustomH1, CustomH3 } from '../components/Common/CustomText';
@@ -6,10 +6,13 @@ import styled from '@emotion/native';
 import { deleteUser, signOut } from 'firebase/auth';
 import { authService } from '../firebase';
 import useCountDDay from '../hooks/useCountDDay';
+import { useIsFocused } from '@react-navigation/native';
 
 const MyPage = ({ navigation: { navigate, reset } }) => {
   const { toBeLength, userCreatedDay } = useCountDDay();
+  const [userDisplayName, setUserDisplayName] = useState('');
 
+  const isFocus = useIsFocused();
 
   useEffect(() => {
     setTimeout(() => {
@@ -29,14 +32,16 @@ const MyPage = ({ navigation: { navigate, reset } }) => {
             signOut(authService)
               .then(alert('로그아웃 하셨습니다.'))
               .then(
-                reset({
-                  routes: [
-                    {
-                      name: 'Stacks',
-                      params: { screen: 'Login' },
-                    },
-                  ],
-                })
+                setTimeout(() => {
+                  reset({
+                    routes: [
+                      {
+                        name: 'Stacks',
+                        params: { screen: 'Login' },
+                      },
+                    ],
+                  });
+                }, 500)
               )
               .catch((e) => console.log(e));
           },
@@ -62,14 +67,16 @@ const MyPage = ({ navigation: { navigate, reset } }) => {
             deleteUser(authService.currentUser)
               .then(alert('회원탈퇴가 완료되었습니다.'))
               .then(
-                reset({
-                  routes: [
-                    {
-                      name: 'Stacks',
-                      params: { screen: 'Login' },
-                    },
-                  ],
-                })
+                setTimeout(() => {
+                  reset({
+                    routes: [
+                      {
+                        name: 'Stacks',
+                        params: { screen: 'Login' },
+                      },
+                    ],
+                  });
+                }, 1000)
               )
               .catch((e) => console.log(e));
           },
@@ -86,7 +93,7 @@ const MyPage = ({ navigation: { navigate, reset } }) => {
   return (
     <SafeAreaView>
       <MyPageTextContainer>
-        <MyPageTopText>{userDisplayName}</MyPageTopText>
+        <MyPageTopText>🎉 {userDisplayName}님 🎉</MyPageTopText>
         <MyPageTopText>함께한지 D+{userCreatedDay}</MyPageTopText>
         <MyPageTopText>내가 바꿀 미래 {toBeLength}</MyPageTopText>
       </MyPageTextContainer>

@@ -15,12 +15,8 @@ const Login = ({ navigation: { navigate } }) => {
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
 
-  const checkUser = setTimeout(() => {
-    authService.currentUser && navigate('Stacks', { screen: 'Landing' });
-  }, 500);
-
   useEffect(() => {
-    checkUser;
+    authService.currentUser && navigate('Stacks', { screen: 'Landing' });
   }, []);
 
   // 유효성 검사

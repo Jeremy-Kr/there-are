@@ -9,7 +9,7 @@ import { authService } from '../firebase';
 const AddDetail = ({
   navigation: { goBack },
   route: {
-    params: { userUid },
+    params: { userUid, isSignUp },
   },
 }) => {
   const { handleAddClick, toBeTitle, setToBeTitle } = useAddDetail(userUid);
@@ -17,9 +17,11 @@ const AddDetail = ({
   return (
     <AddDetailContainer>
       <BackButtonContainer onPress={goBack}>
-        <CustomButton fontSize="14px" width="80px" height="34px">
-          뒤로가기
-        </CustomButton>
+        {!isSignUp && (
+          <CustomButton fontSize="14px" width="80px" height="34px">
+            뒤로가기
+          </CustomButton>
+        )}
       </BackButtonContainer>
       <AddDetailTitle>내가 원하는 미래</AddDetailTitle>
       <AddDetailUserName>나는</AddDetailUserName>

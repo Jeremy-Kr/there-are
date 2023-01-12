@@ -24,7 +24,14 @@ const useAddDetail = (userUid) => {
 
   const handleAddClick = async () => {
     await addToBeList();
-    navigation.navigate('Tabs', { screen: 'Main' });
+    navigation.reset({
+      routes: [
+        {
+          name: 'Tabs',
+          params: { screen: 'Main' },
+        },
+      ],
+    });
   };
 
   return { handleAddClick, toBeTitle, setToBeTitle };
