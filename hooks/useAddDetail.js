@@ -8,6 +8,11 @@ const useAddDetail = (userUid) => {
   const [toBeTitle, setToBeTitle] = useState('');
 
   const addToBeList = async () => {
+    if (toBeTitle.length > 5) {
+      alert('최대 5글자 입력가능합니다!');
+      setToBeTitle('');
+    }
+
     const newToBeList = {
       toBeTitle,
       createdAt: Date.now(),
