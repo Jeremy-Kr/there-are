@@ -23,7 +23,8 @@ const AddToBe = ({
     try {
       const newWrittenDate = toBeDetail.writtenDate ?? [];
       newWrittenDate.push(Date.now());
-      await updateDoc(toBeRef, {
+      await (toBeRef,
+      {
         writtenDate: newWrittenDate,
       });
     } catch (e) {

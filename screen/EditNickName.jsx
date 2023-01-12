@@ -12,7 +12,7 @@ const EditNickName = ({ navigation: { goBack, reset } }) => {
   const changeNickNameRef = useRef(null);
   const handleChangePress = () => {
     if (userNickName.length > 5) {
-      alert('닉네임은 5글자 미만입니다!');
+      alert('글자수는 최대 5글자입니다!');
       changeNickNameRef.current.focus();
       setUserNickName('');
       return true;
@@ -44,7 +44,8 @@ const EditNickName = ({ navigation: { goBack, reset } }) => {
           onChangeText={setUserNickName}
           value={userNickName}
           width={320}
-          placeholder="이름을 입력 해 주세요."
+          placeholder="최대 5글자 입력가능합니다."
+          maxLength={5}
         />
       </NickNameInputContainer>
       <TouchableOpacity onPress={handleChangePress}>

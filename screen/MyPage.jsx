@@ -1,65 +1,78 @@
-import React, { useState } from 'react';
-import { SafeAreaView } from 'react-native';
+import React from 'react';
+import { Alert, SafeAreaView } from 'react-native';
 import { CustomH1, CustomH3 } from '../components/Common/CustomText';
 import styled from '@emotion/native';
-import { deleteUser, getAuth, signOut } from 'firebase/auth';
-import useGetToBeList from '../hooks/useGetToBeList';
-import { useFocusEffect } from '@react-navigation/native';
+import { deleteUser, signOut } from 'firebase/auth';
 import { authService } from '../firebase';
+import useCountDDay from '../hooks/useCountDDay';
 
 const MyPage = ({ navigation: { navigate, reset } }) => {
-  const auth = getAuth();
-  const { toBeLength } = useGetToBeList();
-  const [user, setUser] = useState({});
-  const [userCreatedDay, setUserCreatedDay] = useState();
-
-  const getUserCreatedDay = async () => {
-    const userCreatedAt = await JSON.parse(JSON.stringify(user)).createdAt;
-    const newUserCreatedAt = new Date(+userCreatedAt);
-    const nowDate = new Date();
-    const distance = +nowDate.getTime() - newUserCreatedAt.getTime();
-    const day = Math.floor(distance / (1000 * 60 * 60 * 24));
-    setUserCreatedDay(+day + 1);
-  };
-  useFocusEffect(() => {
-    if (auth.currentUser) {
-      setUser(auth.currentUser);
-      getUserCreatedDay();
-    }
-  });
+  const { toBeLength, userCreatedDay } = useCountDDay();
 
   const handleLogOutPress = () => {
-    // 컨펌 !!!!
-    signOut(authService)
-      .then(alert('로그아웃 하셨습니다.'))
-      .then(
-        reset({
-          routes: [
-            {
-              name: 'Stacks',
-              params: { screen: 'Login' },
-            },
-          ],
-        })
-      )
-      .catch((e) => console.log(e));
+    Alert.alert(
+      '로그아웃',
+      '벌써 나가시려구요? 😥',
+      [
+        { text: '취소', onPress: () => {}, style: 'cancel' },
+        {
+          text: '로그아웃',
+          onPress: () => {
+            signOut(authService)
+              .then(alert('로그아웃 하셨습니다.'))
+              .then(
+                reset({
+                  routes: [
+                    {
+                      name: 'Stacks',
+                      params: { screen: 'Login' },
+                    },
+                  ],
+                })
+              )
+              .catch((e) => console.log(e));
+          },
+          style: 'destructive',
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      }
+    );
   };
 
   const handleDeleteUser = () => {
-    // 컨펌 !!!!
-    deleteUser(authService.currentUser)
-      .then(alert('회원탈퇴가 완료되었습니다.'))
-      .then(
-        reset({
-          routes: [
-            {
-              name: 'Stacks',
-              params: { screen: 'Login' },
-            },
-          ],
-        })
-      )
-      .catch((e) => console.log(e));
+    Alert.alert(
+      '회원탈퇴',
+      '😱 정말로 회원탈퇴하시겠습니까? 😱',
+      [
+        { text: '취소', onPress: () => {}, style: 'cancel' },
+        {
+          text: '탈퇴하기',
+          onPress: () => {
+            deleteUser(authService.currentUser)
+              .then(alert('회원탈퇴가 완료되었습니다.'))
+              .then(
+                reset({
+                  routes: [
+                    {
+                      name: 'Stacks',
+                      params: { screen: 'Login' },
+                    },
+                  ],
+                })
+              )
+              .catch((e) => console.log(e));
+          },
+          style: 'destructive',
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      }
+    );
   };
 
   return (
